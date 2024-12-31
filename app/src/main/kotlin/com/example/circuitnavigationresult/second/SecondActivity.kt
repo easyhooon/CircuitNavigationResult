@@ -30,54 +30,56 @@ class SecondActivity : ComponentActivity() {
         const val KEY_TEXT: String = "text"
     }
 
+    private val initialText by lazy { intent.getStringExtra(KEY_TEXT)!! }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             CircuitNavigationResultTheme {
-                enableEdgeToEdge()
-                setContent {
-                    val navController = rememberNavController()
-                    Scaffold { innerPadding ->
-                        NavHost(
-                            navController = navController,
-                            startDestination = "home",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(innerPadding)
-                        ) {
-                            composable("home") { entry ->
-                                val text = entry.savedStateHandle.get<String>("text")
-                                Column(
-                                    modifier = Modifier.fillMaxSize(),
-                                ) {
-                                    text?.let {
-                                        Text(text = text)
-                                    }
-                                    Button(onClick = {
+                val navController = rememberNavController()
+                Scaffold { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                    ) {
+                        composable("home") { entry ->
+                            val text = entry.savedStateHandle.get<String>("text") ?: initialText
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                            ) {
+                                Text(text = text)
+                                Button(
+                                    onClick = {
                                         navController.navigate("input")
-                                    }) {
-                                        Text(text = "Go to input")
-                                    }
+                                    },
+                                ) {
+                                    Text(text = "Go to input")
                                 }
                             }
-                            composable("input") {
-                                Column(
-                                    modifier = Modifier.fillMaxSize(),
-                                ) {
-                                    var text by remember { mutableStateOf("") }
-                                    OutlinedTextField(
-                                        value = text,
-                                        onValueChange = { text = it },
-                                        modifier = Modifier.width(300.dp)
-                                    )
-                                    Button(onClick = {
+                        }
+                        composable("input") {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                            ) {
+                                var text by remember { mutableStateOf(initialText) }
+                                OutlinedTextField(
+                                    value = text,
+                                    onValueChange = { text = it },
+                                    modifier = Modifier.width(300.dp),
+                                )
+                                Button(
+                                    onClick = {
                                         navController.previousBackStackEntry
                                             ?.savedStateHandle
                                             ?.set("text", text)
                                         navController.popBackStack()
-                                    }) {
-                                        Text(text = "Apply")
-                                    }
+                                    },
+                                ) {
+                                    Text(text = "Apply")
                                 }
                             }
                         }
