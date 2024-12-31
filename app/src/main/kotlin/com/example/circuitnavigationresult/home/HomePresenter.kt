@@ -33,6 +33,7 @@ class HomePresenter @AssistedInject constructor(
             when (event) {
                 is HomeScreen.Event.NavigateToInput -> inputNavigator.goTo(InputScreen)
                 is HomeScreen.Event.NavigateToSecondActivity -> navigator.goTo(SecondScreen("second"))
+                is HomeScreen.Event.UpdateTextByOverlay -> text = event.text
             }
         }
     }
