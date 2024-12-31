@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.circuitnavigationresult.input.InputScreen
+import com.example.circuitnavigationresult.second.SecondScreen
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.foundation.rememberAnsweringNavigator
 import com.slack.circuit.runtime.Navigator
@@ -31,6 +32,7 @@ class HomePresenter @AssistedInject constructor(
         ) { event ->
             when (event) {
                 is HomeScreen.Event.NavigateToInput -> inputNavigator.goTo(InputScreen)
+                is HomeScreen.Event.NavigateToSecondActivity -> navigator.goTo(SecondScreen("second"))
             }
         }
     }
