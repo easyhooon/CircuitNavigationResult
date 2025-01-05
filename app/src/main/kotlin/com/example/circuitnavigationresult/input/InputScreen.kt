@@ -2,7 +2,8 @@ package com.example.circuitnavigationresult.input
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -47,12 +48,16 @@ fun Input(
             onValueChange = {
                 state.eventSink(InputScreen.Event.OnTextChanged(it))
             },
-            modifier = Modifier.width(300.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
         )
         Button(
             onClick = {
                 state.eventSink(InputScreen.Event.OnApplyClicked)
             },
+            modifier = Modifier
+                .padding(top = 16.dp, start = 16.dp),
         ) {
             Text(text = "Apply")
         }

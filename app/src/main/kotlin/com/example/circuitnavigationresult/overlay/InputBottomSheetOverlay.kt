@@ -1,10 +1,8 @@
 package com.example.circuitnavigationresult.overlay
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
@@ -37,12 +35,16 @@ fun InputBottomSheetOverlay(): Overlay<String> =
                     onValueChange = {
                         text = it
                     },
-                    modifier = Modifier.width(300.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                 )
                 Button(
                     onClick = {
                         navigator.finish(text)
                     },
+                    modifier = Modifier
+                        .padding(top = 16.dp, start = 16.dp),
                 ) {
                     Text(text = "Apply")
                 }

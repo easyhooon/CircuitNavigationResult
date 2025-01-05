@@ -6,11 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -95,7 +94,9 @@ class SecondActivity : ComponentActivity() {
                                 OutlinedTextField(
                                     value = text,
                                     onValueChange = { text = it },
-                                    modifier = Modifier.width(300.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 16.dp),
                                 )
                                 Button(
                                     onClick = {
@@ -104,6 +105,8 @@ class SecondActivity : ComponentActivity() {
                                             ?.set("text", text)
                                         navController.popBackStack()
                                     },
+                                    modifier = Modifier
+                                        .padding(top = 16.dp, start = 16.dp),
                                 ) {
                                     Text(text = "Apply")
                                 }
