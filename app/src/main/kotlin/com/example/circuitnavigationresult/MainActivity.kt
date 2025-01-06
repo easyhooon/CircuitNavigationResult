@@ -35,32 +35,28 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CircuitNavigationResultTheme {
-                setContent {
-                    CircuitNavigationResultTheme {
-                        val backStack = rememberSaveableBackStack(root = HomeScreen)
-                        val navigator = rememberAndroidScreenAwareNavigator(
-                            delegate = rememberCircuitNavigator(backStack),
-                            starter = SecondScreen.buildAndroidStarter(this),
-                        )
+                val backStack = rememberSaveableBackStack(root = HomeScreen)
+                val navigator = rememberAndroidScreenAwareNavigator(
+                    delegate = rememberCircuitNavigator(backStack),
+                    starter = SecondScreen.buildAndroidStarter(this),
+                )
 
-                        CircuitCompositionLocals(circuit) {
-                            Scaffold(
-                                topBar = {
-                                     TopAppBar(
-                                         title = { Text(text = "MainActivity") },
-                                     )
-                                },
-                            ) { innerPadding ->
-                                ContentWithOverlays {
-                                    NavigableCircuitContent(
-                                        navigator = navigator,
-                                        backStack = backStack,
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .padding(innerPadding),
-                                    )
-                                }
-                            }
+                CircuitCompositionLocals(circuit) {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = { Text(text = "MainActivity") },
+                            )
+                        },
+                    ) { innerPadding ->
+                        ContentWithOverlays {
+                            NavigableCircuitContent(
+                                navigator = navigator,
+                                backStack = backStack,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(innerPadding),
+                            )
                         }
                     }
                 }
